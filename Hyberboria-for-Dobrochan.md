@@ -100,3 +100,35 @@
 ## &lt;/FAQ>
 
 Вроде бы всё. Задавайте свои вопросы.
+
+
+## Ещё почитать
+
+Русская википедия: http://ru.wikipedia.org/wiki/Cjdns
+
+Английская: http://en.wikipedia.org/wiki/Cjdns
+
+Статья на хабре про маршрутизацию в Hyperboria: http://habrahabr.ru/post/183606/
+
+
+## Сайты
+
+
+Ну и сейчас, наверное, кто-то спросит, что в этой сети вообще есть посмотреть. Да обычный набор для криптосети:
+
+_Часть сайтов Hyperboria доступна и из интернета, но это скорее исключение, чем правило. Не стоит пытаться открыть их без cjdns._
+
+* https://wiki.projectmeshnet.org/HypeIRC - IRC;
+* http://rows.io/ - сервер Jabber (забавен тем, что к нему можно подключиться по Hyperboria и общаться с пользователями интернета);
+* https://ezcrypt.it/ - pastebin с шифрованием на стороне клиента. Файлообменник Mega видели? Вот примерно то же самое;
+* http://socialno.de/ - что-то типа социальной сети;
+* http://uppit.us/ - клон Reddit;
+* http://urlcloud.net/ - файлообменник;
+* http://[fc5d:baa5:61fc:6ffd:9554:67f0:e290:7535]/ - информация об адресах сети;
+* http://gitboria.com/ - git хостинг. Аналог гитхаба, но с gitlab на борту.
+
+Список других сайтов: https://wiki.projectmeshnet.org/Known_Hyperboria_sites
+
+Бонус для пользователей Arch Linux: их репозитории уже зеркалят в Hyperboria. Добавьте в mirrorlist:
+
+    Server = http://[fc7b:5f90:01f8:2b33:7c3e:f94b:00f3:0bed]/archlinux/$repo/os/$arch
