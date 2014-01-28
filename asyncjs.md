@@ -17,3 +17,9 @@ queryResults = anyDB.query(mysqlConnection, 'SELECT * FROM `users`');
 ```
 
 ### Написание
+
+```javascript
+exports.isInFight = function(dbConnection, userid) {
+	dbConnection.query("SELECT `fight_mode` FROM `uniusers` WHERE `id` = ?", [userid]);
+};
+```
