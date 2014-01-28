@@ -40,14 +40,24 @@ readFromSlowStream = function(stream, bytes) {
   var left = bytes;
   while(true)
   {
+    // читаем из потока все байты, какие в нём есть (но не больше, чем нам надо),
+    // и помещаем в output
     var toRead = Math.min(stream.available(), left);
     if (toRead > 0)
     {
       output.append(stream.readBytes(toRead));
       left -= toRead;
     }
-    yield;
+    // если байты кончились, а нам надо ещё - отдаём управление
+    // иначе - возвращаем результат
+    if (left == 0)
+    {
+      return output;
+    }
+    else
+    {
+      yield;
+    }
   }
-  return output;
 }
 ```
