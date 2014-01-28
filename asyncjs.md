@@ -13,7 +13,7 @@
 ### Использование
 
 ```javascript
-queryResults = anyDB.query(mysqlConnection, 'SELECT * FROM `users`);
+queryResults = anyDB.query(mysqlConnection, 'SELECT * FROM `users`');
 ```
 
 ### Написание
