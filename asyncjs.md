@@ -20,6 +20,6 @@ queryResults = anyDB.query(mysqlConnection, 'SELECT * FROM `users`');
 
 ```javascript
 exports.isInFight = function(dbConnection, userid) {
-	dbConnection.query("SELECT `fight_mode` FROM `uniusers` WHERE `id` = ?", [userid]);
+  return dbConnection.query("SELECT `fight_mode` FROM `uniusers` WHERE `id` = ?", [userid]);
 };
 ```
