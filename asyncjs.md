@@ -30,5 +30,6 @@ asyncFac = function(n) {
     result = result*i;
     if (i % 100 == 0) yield;
   }
+  return result;
 }
 ```
