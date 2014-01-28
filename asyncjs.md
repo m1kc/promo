@@ -73,3 +73,16 @@ dbQuery = function(sql) {
   return dbSocket.readAnswer();
 }
 ```
+
+## Совместимость со старым кодом
+
+Если код умеет возвращать значение только через колбэк, используется ключевое слово `callback`, добавляющее последний неявный аргумент.
+
+```javascript
+// legacy code
+sum = function(x, y, callback) {
+  callback(x+y);
+}
+
+var result = callback sum(2, 2);
+```
