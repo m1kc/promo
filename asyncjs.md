@@ -25,7 +25,7 @@ asyncFac = function(n) {
   if (n == 0) return 1;
   if (n == 1) return 1;
   var result = n;
-  for (i=n-1; i>=1; i--)
+  for (i = n-1; i >= 1; i--)
   {
     result = result*i;
     if (i % 100 == 0) yield;
