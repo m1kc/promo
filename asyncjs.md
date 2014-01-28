@@ -61,3 +61,14 @@ readFromSlowStream = function(stream, bytes) {
   }
 }
 ```
+
+```javascript
+dbQuery = function(sql) {
+  dbSocket.send(sql);
+  while(dbSocket.noAnswer())
+  {
+    yield;
+  }
+  return dbSocket.readAnswer();
+}
+```
