@@ -15,6 +15,7 @@
 ```javascript
 isInFight = function(dbConnection, userid) {
   return dbConnection.query("SELECT `fight_mode` FROM `uniusers` WHERE `id` = ?", [userid]);
+  // query - асинхронная функция, но нас это не должно волновать
 };
 ```
 
@@ -28,7 +29,7 @@ asyncFac = function(n) {
   for (i = n-1; i >= 1; i--)
   {
     result = result*i;
-    if (i % 100 == 0) yield;
+    if (i % 100 == 0) yield; // раз в сто итераций освобождать поток
   }
   return result;
 }
