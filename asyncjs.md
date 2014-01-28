@@ -183,3 +183,5 @@ isInFight = function(dbConnection, userid) {
   return result;
 };
 ```
+
+Для совместимости со старыми функциями останется возможность вызова через ключевое слово `async`.
