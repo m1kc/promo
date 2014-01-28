@@ -1,112 +1,45 @@
-# Предлагаемая спецификация асинхронного JavaScript
+# Асинхронный JavaScript должен стать лучше
 
-Нас заебали ваши колбэки. Мы хотим нормальный линейный код. Мы хотим, чтобы асинхронное I/O не мешало нам писать программы.
+Категорически сабж.
 
-## Принципы
-
-1. Асинхронный код должен выглядеть как синхронный.
-2. Вызванная функция должна возвращать значение одним и тем же способом вне зависимости от того, асинхронная она или нет.
-3. Исключения должны обрабатываться одним и тем же способом вне зависимости от того, асинхронная функция вызвана или нет.
-
-## Как это должно выглядеть
-
-### Использование
+## Проблемы текущей реализации
 
 ```javascript
-isInFight = function(dbConnection, userid) {
-  return dbConnection.query("SELECT `fight_mode` FROM `uniusers` WHERE `id` = ?", [userid]);
-  // query - асинхронная функция, но нас это не должно волновать
-};
+setTimeout(function(){
+  _get("/something.ajax?greeting", function(err, greeting) {
+    if (err) { console.log(err); throw err; }
+    _get("/else.ajax?who&greeting="+greeting, function(err, who) {
+      if (err) { console.log(err); throw err; }
+      console.log(greeting+" "+who);
+    });
+  });
+}, 1000);
 ```
 
-### Написание
+1. Лапша.
+2. Результат выполнения функции нельзя использовать в том же контексте.
+3. Ошибки надо обрабатывать вручную.
 
 ```javascript
-asyncFac = function(n) {
-  if (n == 0) return 1;
-  if (n == 1) return 1;
-  var result = n;
-  for (i = n-1; i >= 1; i--)
-  {
-    result = result*i;
-    if (i % 100 == 0) yield; // раз в сто итераций освобождать поток
-  }
-  return result;
-}
-```
-
-```javascript
-readFromSlowStream = function(stream, bytes) {
-  var output = [];
-  var left = bytes;
-  while(true)
-  {
-    // читаем из потока все байты, какие в нём есть (но не больше, чем нам надо),
-    // и помещаем в output
-    var toRead = Math.min(stream.available(), left);
-    if (toRead > 0)
-    {
-      output.append(stream.readBytes(toRead));
-      left -= toRead;
+var fibonacci = function(n, callback) {
+    var inner = function(n1, n2, i) {
+        if (i > n) {
+            callback(null, n2);
+            return;
+        }
+        var func = (i % 100) ? inner : inner_tick;
+        func(n2, n1 + n2, i + 1);
     }
-    // если байты кончились, а нам надо ещё - отдаём управление
-    // иначе - возвращаем результат
-    if (left == 0)
-    {
-      return output;
+    var inner_tick = function(n1, n2, i) {
+        process.nextTick(function() { inner(n1, n2, i); });
     }
-    else
-    {
-      yield;
+    if (n == 1 || n == 2) {
+        callback(null, 1);
+    } else {
+        inner(1, 1, 3);
     }
-  }
 }
 ```
 
-```javascript
-dbQuery = function(sql) {
-  dbSocket.send(sql);
-  while(dbSocket.noAnswer())
-  {
-    yield;
-  }
-  return dbSocket.readAnswer();
-}
-```
-
-## Совместимость со старым кодом
-
-Если код умеет возвращать значение только через колбэк, используется ключевое слово `callback`, добавляющее последний неявный аргумент.
-
-```javascript
-// legacy code
-sum = function(x, y, callback) {
-  callback(x+y);
-}
-
-var result = callback sum(2, 2);
-```
-
-
-# Более простая концепция
-
-Ладно, допустим, мы готовы терпеть колбэки. Допустим, мы согласны терпеть кучу говна в реализации. Но давайте почистим хотя бы интерфейс.
-
-В этом варианте всё остаётся на своих местах, меняется только схема вызова асинхронных функций.
-
-```javascript
-sum = function(x, y, callback) {
-  callback(null, x+y);
-}
-
-var result = async sum(2, 2);
-```
-
-К ключевому слову `async` может добавляться описание аргументов колбэка.
-
-```javascript
-var x = async(result) sum(2, 2); // sum возвращает только результат
-var x = async(error, result) sum(2, 2); // sum может вернуть и ошибку, и результат
-var x = async(error) sum(2, 2); // sum может вернуть либо ошибку, либо ничего
-var x = async sum(2, 2); // аналогично async(error, result)
-```
+1. Эффективная реализация асинхронной функции часто бывает сильно запутанной.
+2. Невозможно продолжить выполнение в том же контексте, в котором оно началось.
