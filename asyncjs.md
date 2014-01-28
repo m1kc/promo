@@ -37,16 +37,16 @@ asyncFac = function(n) {
 ```javascript
 readFromSlowStream = function(stream, bytes) {
   var output = [];
-  for (i = 0; i < bytes; i++)
+  var left = bytes;
+  while(true)
   {
-    if(stream.available > 0)
+    var toRead = Math.min(stream.available(), left);
+    if (toRead > 0)
     {
-      output.push(stream.readByte());
+      output.append(stream.readBytes(toRead));
+      left -= toRead;
     }
-    else
-    {
-      yield;
-    }
+    yield;
   }
   return output;
 }
