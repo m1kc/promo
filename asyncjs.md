@@ -33,3 +33,21 @@ asyncFac = function(n) {
   return result;
 }
 ```
+
+```javascript
+readFromSlowStream = function(stream, bytes) {
+  var output = [];
+  for (i = 0; i < bytes; i++)
+  {
+    if(stream.available > 0)
+    {
+      output.push(stream.readByte());
+    }
+    else
+    {
+      yield;
+    }
+  }
+  return output;
+}
+```
