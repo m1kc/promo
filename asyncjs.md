@@ -86,3 +86,27 @@ sum = function(x, y, callback) {
 
 var result = callback sum(2, 2);
 ```
+
+
+# Более простая концепция
+
+Ладно, допустим, мы готовы терпеть колбэки. Допустим, мы согласны терпеть кучу говна в реализации. Но давайте почистим хотя бы интерфейс.
+
+В этом варианте всё остаётся на своих местах, меняется только схема вызова асинхронных функций.
+
+```javascript
+sum = function(x, y, callback) {
+  callback(null, x+y);
+}
+
+var result = async sum(2, 2);
+```
+
+К ключевому слову `async` может добавляться описание аргументов колбэка.
+
+```javascript
+var sum = async(result) sum(2, 2); // sum возвращает только результат
+var sum = async(error, result) sum(2, 2); // sum может вернуть и ошибку, и результат
+var sum = async(error) sum(2, 2); // sum может вернуть либо ошибку, либо ничего
+var sum = async sum(2, 2); // аналогично async(error, result)
+```
