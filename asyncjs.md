@@ -105,8 +105,8 @@ var result = async sum(2, 2);
 К ключевому слову `async` может добавляться описание аргументов колбэка.
 
 ```javascript
-var sum = async(result) sum(2, 2); // sum возвращает только результат
-var sum = async(error, result) sum(2, 2); // sum может вернуть и ошибку, и результат
-var sum = async(error) sum(2, 2); // sum может вернуть либо ошибку, либо ничего
-var sum = async sum(2, 2); // аналогично async(error, result)
+var x = async(result) sum(2, 2); // sum возвращает только результат
+var x = async(error, result) sum(2, 2); // sum может вернуть и ошибку, и результат
+var x = async(error) sum(2, 2); // sum может вернуть либо ошибку, либо ничего
+var x = async sum(2, 2); // аналогично async(error, result)
 ```
