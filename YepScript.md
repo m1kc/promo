@@ -100,3 +100,38 @@ console.log z  # 5
 addOne z
 console.log z  # 5
 ```
+
+
+## Строгая типизация
+
+```coffeescript
+plusOne = (x) ->
+	x + 1
+
+console.log plusOne(5)  # 6
+```
+
+Если у функции явно задан тип аргумента, он будет проверен в рантайме.
+
+```coffeescript
+plusOne = (Integer x) ->
+	x + 1
+
+z = getNumberFromUser()
+console.log z  # 5
+console.log plusOne(z)  # 6
+console.log plusOne('strawberry')  # TypeError
+```
+
+А если он известен во время компиляции, то и проверка будет во время компиляции, и код будет более оптимальным.
+
+```coffeescript
+plusOne = (Integer x) ->
+	x + 1
+
+Integer z = 5
+console.log plusOne(z)  # Тип переменной z известен заранее
+console.log plusOne(7)  # Тип константы известен заранее
+console.log plusOne(2+2)  # Тип константного выражения легко вывести
+console.log plusOne('well')  # Не скомпилируется
+```
