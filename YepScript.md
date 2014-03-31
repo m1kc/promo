@@ -69,3 +69,32 @@ console.log "2+2 = #{2+2}"  # 2+2 = 4
 console.log "#{{2+2}}"    # 2+2 = 4
 console.log "#{{2 + 2}}"  # 2 + 2 = 4
 ```
+
+
+## Передача по ссылке и по значению
+
+По умолчанию числа, булеаны передаются по значению, а массивы и объекты - по ссылке. Но можно задать явно.
+
+### По ссылке
+
+```coffeescript
+addOne = (Integer& x) ->
+	x++
+
+z = 5
+console.log z  # 5
+addOne z
+console.log z  # 6
+```
+
+### По значению
+
+```coffeescript
+addOne = (Integer% x) ->
+	x++
+
+z = 5
+console.log z  # 5
+addOne z
+console.log z  # 5
+```
