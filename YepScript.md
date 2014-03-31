@@ -60,12 +60,12 @@ console.log 'Hello, world!'
 ## Интерполяция
 
 ```coffeescript
-"2+2 = #{2+2}"  # 2+2 = 4
+console.log "2+2 = #{2+2}"  # 2+2 = 4
 ```
 
 Но можно и лучше:
 
 ```coffeescript
-"#{{2+2}}"    # 2+2 = 4
-"#{{2 + 2}}"  # 2 + 2 = 4
+console.log "#{{2+2}}"    # 2+2 = 4
+console.log "#{{2 + 2}}"  # 2 + 2 = 4
 ```
